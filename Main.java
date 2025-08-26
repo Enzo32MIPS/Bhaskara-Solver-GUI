@@ -52,7 +52,7 @@ public class Main{
 
 			if(!temp1.isEmpty() && !temp2.isEmpty() && !temp3.isEmpty()){
 
-				double aa, bb, cc, temp,x1,x2;
+				double aa, bb, cc, temp, x1, x2;
 
 				aa = Double.parseDouble(fieldA.getText());
 				bb = Double.parseDouble(fieldB.getText());
