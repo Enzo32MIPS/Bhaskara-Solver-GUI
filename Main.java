@@ -1,22 +1,28 @@
 import java.util.Scanner;
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.*;
 
 public class Main{
 	public static void main(String[] args){
 
+		Color customColor = new Color(40,43,48);
+		ImageIcon customIcon = new ImageIcon("quill-pen-fill.png");
 		JFrame frame = new JFrame("Calculadora Bhaskara");
 		frame.setSize(440,240);
 		frame.setLayout(null);
+		frame.setIconImage(customIcon.getImage());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
+		frame.getContentPane().setBackground(customColor);
 		System.out.println("Window successfully created");
 
 		JLabel labelA = new JLabel("X²+");
 		labelA.setBounds(130,40,20,25);
 		frame.add(labelA);
 		JTextField fieldA = new JTextField();
+		labelA.setForeground(Color.WHITE);
 		frame.add(fieldA);
 		fieldA.setBounds(75,40,50,25);
 		System.out.println("LabelA and FieldA loaded");
@@ -25,6 +31,7 @@ public class Main{
 		frame.add(labelB);
 		labelB.setBounds(255,40,50,25);
 		JTextField fieldB = new JTextField();
+		labelB.setForeground(Color.WHITE);
 		frame.add(fieldB);
 		fieldB.setBounds(195,40,50,25);
 		System.out.println("LabelB and FieldB loaded");
@@ -36,10 +43,14 @@ public class Main{
 
 		JButton sbutton = new JButton("Solucionar");
 		sbutton.setBounds(170, 90, 100, 30);
+		sbutton.setBackground(Color.DARK_GRAY);
+		sbutton.setForeground(Color.WHITE);
 		frame.add(sbutton);
 
 		JLabel labelres = new JLabel("X1 = ?   X2 = ?");
 		labelres.setBounds(185,130,110,25);
+		labelres.setForeground(Color.WHITE);
+		//labelres.setFont(new Font("Times",Font.BOLD,11));
 		frame.add(labelres);
 
 		frame.setVisible(true);
@@ -75,7 +86,6 @@ public class Main{
 				int length2 = temp5.length();
 				labelres.setBounds((175-length2),130,150,25);
 			}
-
 		});
 	}
 }
