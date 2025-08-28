@@ -2,12 +2,20 @@ import java.util.Scanner;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
 
 public class Main{
 	public static void main(String[] args){
 
-		Color customColor = new Color(40,43,48);
-		ImageIcon customIcon = new ImageIcon("quill-pen-fill.png");
+		try {
+    		UIManager.setLookAndFeel(new FlatLightLaf());
+		} catch (Exception ex) {
+    		System.err.println("Failed to initialize FlatLaf");
+		}
+
+		//Color customColor = new Color(40,43,48);
+		ImageIcon customIcon = new ImageIcon(Main.class.getResource("/quill-pen-fill.png"));
 		JFrame frame = new JFrame("Calculadora Bhaskara");
 		frame.setSize(440,240);
 		frame.setLayout(null);
@@ -15,43 +23,47 @@ public class Main{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setBackground(customColor);
+		//frame.getContentPane().setBackground(customColor);
 		System.out.println("Window successfully created");
 
 		JLabel labelA = new JLabel("X²+");
-		labelA.setBounds(130,40,20,25);
+		labelA.setBounds(165,40,20,25);
 		frame.add(labelA);
 		JTextField fieldA = new JTextField();
-		labelA.setForeground(Color.WHITE);
+		//labelA.setForeground(Color.WHITE);
 		frame.add(fieldA);
-		fieldA.setBounds(75,40,50,25);
+		fieldA.setBounds(125,40,30,25);
 		System.out.println("LabelA and FieldA loaded");
 
 		JLabel labelB = new JLabel("X+");
 		frame.add(labelB);
-		labelB.setBounds(255,40,50,25);
+		labelB.setBounds(235,40,30,25);
 		JTextField fieldB = new JTextField();
-		labelB.setForeground(Color.WHITE);
-		frame.add(fieldB);
-		fieldB.setBounds(195,40,50,25);
+		//labelB.setForeground(Color.WHITE);
+		frame.add(fieldB,BorderLayout.CENTER);
+		fieldB.setBounds(195,40,30,25);
 		System.out.println("LabelB and FieldB loaded");
 
 		JTextField fieldC = new JTextField();
 		frame.add(fieldC);
-		fieldC.setBounds(305,40,50,25);
+		fieldC.setBounds(260,40,30,25);
 		System.out.println("FieldC loaded");
 
 		JButton sbutton = new JButton("Solucionar");
-		sbutton.setBounds(170, 90, 100, 30);
-		sbutton.setBackground(Color.DARK_GRAY);
-		sbutton.setForeground(Color.WHITE);
-		frame.add(sbutton);
+		sbutton.setBounds(160, 90, 100, 30);
+		//sbutton.setForeground(Color.WHITE);
+		frame.add(sbutton,BorderLayout.CENTER);
 
 		JLabel labelres = new JLabel("X1 = ?   X2 = ?");
-		labelres.setBounds(185,130,110,25);
-		labelres.setForeground(Color.WHITE);
-		//labelres.setFont(new Font("Times",Font.BOLD,11));
+		labelres.setBounds(175,130,110,25);
+		//labelres.setForeground(Color.WHITE);
 		frame.add(labelres);
+
+		String[] items = {"Light mode", "Dark mode"};
+
+		JComboBox<String> dropdown = new JComboBox<>(items);
+		dropdown.setBounds(5,165,150,30);
+		frame.add(dropdown);
 
 		frame.setVisible(true);
 
@@ -78,7 +90,7 @@ public class Main{
 				labelres.setText("X1 = " + x1 + " X2 = " +x2);
 				String tempo = labelres.getText();
 				int length = tempo.length();
-				labelres.setBounds((185-length), 130, 110, 25);
+				labelres.setBounds((185-length), 130, 200, 25);
 
 			} else {
 				labelres.setText("Preencha os campos");
@@ -87,5 +99,30 @@ public class Main{
 				labelres.setBounds((175-length2),130,150,25);
 			}
 		});
+
+		dropdown.addActionListener(e -> {
+            String selected = (String) dropdown.getSelectedItem();
+			if (selected == "Dark mode"){
+				try{
+					//frame.setVisible(false);
+					UIManager.setLookAndFeel(new FlatDarkLaf());
+					//frame.setVisible(true);
+				} catch (Exception ex){
+					System.err.println("Failed to change themes");
+				}
+			} else {
+				try {
+					//frame.setVisible(false);
+					UIManager.setLookAndFeel(new FlatLightLaf());
+					//frame.setVisible(true);
+				} catch (Exception ex){
+					System.err.println("Failed to change themes");
+				}
+			}
+
+			SwingUtilities.updateComponentTreeUI(frame);
+
+            //JOptionPane.showMessageDialog(frame, "You selected: " + selected);
+        });
 	}
 }
